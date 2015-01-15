@@ -35,7 +35,7 @@ Before importing the vcfGewata rasterLayer a quality checked is required in orde
 hist(vcfGewata)
 ```
 
-Histogram shows that,in the vcfGewata rasterLayer there are some values much greater than 100. However, the max value for tree cover is 100 (*source:*http://glcf.umd.edu/data/landsatTreecover), hence, these values should be removed prior add the vcf raster layer to the raster brick of Landsat bands.
+Histogram shows that,in the vcfGewata rasterLayer there are some values much greater than 100. However, the max value for tree cover is 100 (**source:**http://glcf.umd.edu/data/landsatTreecover), hence, these values should be removed prior add the vcf raster layer to the raster brick of Landsat bands.
 ```{r}
 vcfGewata[vcfGewata > 100] <- NA
 landsatvcf <-  addLayer(landsat,vcfGewata)

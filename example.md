@@ -216,27 +216,10 @@ zonal.df<-as.data.frame(zonal)
 The rmse function is also used here:
 
 ```r
+source("R/rmse.R")
 rmse_1 <- rmse(zonal.df[1,2], zonal.df[1,3])
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "rmse"
-```
-
-```r
 rmse_2 <- rmse(zonal.df[2,2], zonal.df[2,3])
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "rmse"
-```
-
-```r
 rmse_3 <- rmse(zonal.df[3,2], zonal.df[3,3])
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "rmse"
 ```
 
 print(paste("The rmse is equal to",rmse_1,",",rmse_2,",",rmse_3,",for forest crop and water,repsectively."))
