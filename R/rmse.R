@@ -3,4 +3,6 @@
 
 # This function computes the root mean squared error
 
-rmse <- function( actual, predicted ) sqrt( mean(( actual - predicted ) ^ 2 ))
+rmse <- function( actual, predicted ) {
+ rmse<- round(sqrt( mean(( actual - predicted ) ^ 2 )), digits=2)
+}

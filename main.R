@@ -24,7 +24,6 @@ landsat <- calc(landsat, fun=function(x) x / 10000)
 vcfGewata[vcfGewata > 100] <- NA
 landsatvcf <-  addLayer(landsat,vcfGewata)
 names(landsatvcf) <- c("band1", "band2", "band3", "band4",  "band5", "band7", "vcf")
-landsatvcf
 
 # extract the values into a data frame
 valuetable <- getValues(landsatvcf)
@@ -33,12 +32,10 @@ valuetable <- as.data.frame(valuetable)
 
 # Creating linear regression model with dependent variable the vcf and as independent variables the landsat bands
 model <- lm(vcf ~ band3, valuetable)
-a<-summary(model) # show results
-a$r.squared
+summary(model) # show results
 coef(model) # extract the model's coefficients
-
-##layout(matrix(1:4,2,2)) 
-##plot(model)
+#layout(matrix(1:4,2,2)) 
+#plot(model)
 
 # predict vdf values based on the developed regression model
 vcf.predict.raster <- predict(landsatvcf, model)
@@ -65,9 +62,9 @@ print(paste("The rmse is equal to",rmse ))
 # calculate the RMSE separately for each of the classes and compare
 
 #make it with zonal
-a<-brick(landsatvcf$vcf,vcf.predict.raster)
+rasterbrick<-brick(landsatvcf$vcf,vcf.predict.raster)
 classes <- rasterize(trainingPoly, vcf.predict.raster, field='Class')
-zonal<-zonal(a,classes, mean)
+zonal<-zonal(rasterbrick,classes, mean)
 zonal.df<-as.data.frame(zonal)
 
 source("R/rmse.R")
@@ -75,4 +72,4 @@ rmse_1 <- rmse(zonal.df[1,2], zonal.df[1,3])
 rmse_2 <- rmse(zonal.df[2,2], zonal.df[2,3])
 rmse_3 <- rmse(zonal.df[3,2], zonal.df[3,3])
 
-print(paste("The rmse is equal to",rmse_1,",",rmse_2,",",rmse_3,",for forest crop and water,repsectively."))
+print(paste("The rmse is equal to",rmse_1,",",rmse_2,",",rmse_3,",for wetland, forest and cropland class,repsectively."))
